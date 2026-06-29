@@ -5,23 +5,20 @@ export const MODES: Record<AnalysisMode, ModeMeta> = {
   academic: {
     id: 'academic',
     title: 'Academic',
-    tagline: 'Study the frame',
-    description:
-      'A scholarly read of the scene — concepts, materials, and what it could teach.',
+    tagline: 'Learn what you see',
+    description: 'Explain what this is and what it can teach me.',
   },
   safety: {
     id: 'safety',
     title: 'Safety',
-    tagline: 'Spot the risk',
-    description:
-      'Hazards, compliance, and protective actions for the environment in view.',
+    tagline: 'Check for risks',
+    description: 'Spot anything risky and how to stay safe.',
   },
   inventory: {
     id: 'inventory',
     title: 'Inventory',
-    tagline: 'Count & catalog',
-    description:
-      'Itemize visible objects, quantities, and condition like a stock take.',
+    tagline: 'Count what’s there',
+    description: 'Count and list the items I can see.',
   },
 };
 

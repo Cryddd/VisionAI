@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image';
@@ -31,8 +37,12 @@ const MODE_ICON: Record<AnalysisMode, keyof typeof Ionicons.glyphMap> = {
 export function PreviewScreen({ navigation }: Props) {
   const { photo } = useCapture();
   const { hasGeminiKey } = useSettings();
+  const { height } = useWindowDimensions();
   const [selected, setSelected] = useState<AnalysisMode>('academic');
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  // Responsive image height that always leaves room for the cards below.
+  const imageHeight = Math.max(220, Math.min(height * 0.36, 360));
 
   // Guard: if no photo (e.g. hot reload), return to camera.
   useEffect(() => {
@@ -57,35 +67,55 @@ export function PreviewScreen({ navigation }: Props) {
       <GrainOverlay opacity={0.04} />
 
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        {/* Image hero */}
-        <Animated.View entering={FadeIn.duration(500)} style={styles.imageWrap}>
-          <Image
-            source={{ uri: photo.uri }}
-            style={styles.image}
-            contentFit="cover"
-            transition={300}
-          />
-          <LinearGradient
-            colors={['transparent', 'rgba(8,8,10,0.85)']}
-            style={styles.imageScrim}
-          />
+        {/* Header with a clear way back out of this screen */}
+        <View style={styles.header}>
           <PressableScale
             haptic="light"
             onPress={() => navigation.goBack()}
-            style={styles.retake}
+            style={styles.headerBtn}
           >
-            <Ionicons name="refresh" size={18} color={colors.ink} />
-            <Text style={styles.retakeText}>Retake</Text>
+            <Ionicons name="chevron-back" size={22} color={colors.ink} />
           </PressableScale>
-        </Animated.View>
+          <Text style={styles.headerTitle}>Your photo</Text>
+          <View style={styles.headerBtn} />
+        </View>
 
-        {/* Mode selection */}
-        <View style={styles.body}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Image hero */}
+          <Animated.View
+            entering={FadeIn.duration(500)}
+            style={[styles.imageWrap, { height: imageHeight }]}
+          >
+            <Image
+              source={{ uri: photo.uri }}
+              style={styles.image}
+              contentFit="cover"
+              transition={300}
+            />
+            <LinearGradient
+              colors={['transparent', 'rgba(8,8,10,0.85)']}
+              style={styles.imageScrim}
+            />
+            <PressableScale
+              haptic="light"
+              onPress={() => navigation.goBack()}
+              style={styles.retake}
+            >
+              <Ionicons name="refresh" size={18} color={colors.ink} />
+              <Text style={styles.retakeText}>Retake</Text>
+            </PressableScale>
+          </Animated.View>
+
+          {/* Mode selection */}
           <Animated.Text entering={FadeInDown.delay(120).duration(500)} style={styles.eyebrow}>
-            CHOOSE YOUR LENS
+            CHOOSE A MODE
           </Animated.Text>
           <Animated.Text entering={FadeInDown.delay(200).duration(500)} style={styles.title}>
-            How should AI read this?
+            What do you want to know?
           </Animated.Text>
 
           <View style={styles.modes}>
@@ -134,18 +164,19 @@ export function PreviewScreen({ navigation }: Props) {
               );
             })}
           </View>
+        </ScrollView>
 
-          <Animated.View entering={FadeInUp.delay(620).duration(500)} style={styles.cta}>
-            <Button
-              label={`Run ${MODES[selected].title} Analysis`}
-              gradient={accent.gradient}
-              icon={<Ionicons name="sparkles" size={18} color={colors.black} />}
-              onPress={onAnalyze}
-            />
-            {!hasGeminiKey && (
-              <Text style={styles.warn}>Add a Gemini API key to analyze →</Text>
-            )}
-          </Animated.View>
+        {/* Pinned action so it's always reachable */}
+        <View style={styles.ctaBar}>
+          <Button
+            label={`Run ${MODES[selected].title} Analysis`}
+            gradient={accent.gradient}
+            icon={<Ionicons name="sparkles" size={18} color={colors.black} />}
+            onPress={onAnalyze}
+          />
+          {!hasGeminiKey && (
+            <Text style={styles.warn}>Add a Gemini API key to analyze →</Text>
+          )}
         </View>
       </SafeAreaView>
 
@@ -157,13 +188,34 @@ export function PreviewScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   safe: { flex: 1 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.sm,
+  },
+  headerBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: radius.pill,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(246,244,239,0.06)',
+  },
+  headerTitle: { ...type.label, color: colors.ink },
+  scroll: { flex: 1 },
+  scrollContent: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
+  },
   imageWrap: {
-    height: '42%',
-    margin: spacing.lg,
     borderRadius: radius.xl,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: colors.hairline,
+    marginBottom: spacing.lg,
   },
   image: { ...fill },
   imageScrim: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 120 },
@@ -182,10 +234,9 @@ const styles = StyleSheet.create({
     borderColor: colors.hairline,
   },
   retakeText: { ...type.label, color: colors.ink },
-  body: { flex: 1, paddingHorizontal: spacing.lg },
   eyebrow: { ...type.eyebrow, color: colors.inkMuted },
   title: { ...type.title, color: colors.ink, marginTop: spacing.sm, marginBottom: spacing.lg },
-  modes: { gap: spacing.md, flex: 1 },
+  modes: { gap: spacing.md },
   modeCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -216,6 +267,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  cta: { paddingVertical: spacing.lg, gap: spacing.sm },
+  ctaBar: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
+    paddingBottom: spacing.sm,
+    gap: spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: colors.hairline,
+    backgroundColor: colors.bg,
+  },
   warn: { ...type.caption, color: colors.amber, textAlign: 'center' },
 });
