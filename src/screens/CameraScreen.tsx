@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { CameraView, FlashMode, useCameraPermissions } from 'expo-camera';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import Animated, {
@@ -115,8 +116,17 @@ export function CameraScreen({ navigation }: Props) {
         onCameraReady={() => setReady(true)}
       />
 
-      {/* Subtle vignette for legibility */}
-      <View style={styles.vignette} pointerEvents="none" />
+      {/* Soft scrims keep the controls legible without a boxy border */}
+      <LinearGradient
+        colors={['rgba(8,8,10,0.6)', 'transparent']}
+        style={styles.scrimTop}
+        pointerEvents="none"
+      />
+      <LinearGradient
+        colors={['transparent', 'rgba(8,8,10,0.7)']}
+        style={styles.scrimBottom}
+        pointerEvents="none"
+      />
 
       <SafeAreaView style={styles.overlay} edges={['top', 'bottom']}>
         {/* Top controls */}
@@ -135,8 +145,10 @@ export function CameraScreen({ navigation }: Props) {
 
         {/* Center framing brackets + scan line */}
         <View style={styles.frameWrap} pointerEvents="none">
-          <Frame />
-          {ready && <ScanLine />}
+          <View style={styles.frameBox}>
+            <Frame />
+            {ready && <ScanLine />}
+          </View>
           <Animated.Text entering={FadeIn.delay(400)} style={styles.frameHint}>
             Frame your subject
           </Animated.Text>
@@ -252,11 +264,8 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.bg },
   darken: { ...fill, backgroundColor: 'rgba(8,8,10,0.5)' },
-  vignette: {
-    ...fill,
-    borderWidth: 80,
-    borderColor: 'rgba(0,0,0,0.28)',
-  },
+  scrimTop: { position: 'absolute', top: 0, left: 0, right: 0, height: 180 },
+  scrimBottom: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 260 },
   overlay: {
     flex: 1,
     justifyContent: 'space-between',
@@ -307,6 +316,10 @@ const styles = StyleSheet.create({
 
   // frame
   frameWrap: { alignItems: 'center', justifyContent: 'center', flex: 1 },
+  frameBox: {
+    width: FRAME_SIZE,
+    height: FRAME_SIZE,
+  },
   frame: {
     width: FRAME_SIZE,
     height: FRAME_SIZE,
@@ -323,9 +336,9 @@ const styles = StyleSheet.create({
   },
   scanLine: {
     position: 'absolute',
-    top: FRAME_SIZE / 2 - FRAME_SIZE / 2,
-    width: FRAME_SIZE - 8,
-    alignSelf: 'center',
+    top: 0,
+    left: 4,
+    right: 4,
     height: 2,
     backgroundColor: colors.mint,
     borderRadius: 2,
