@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { CameraView, FlashMode, useCameraPermissions } from 'expo-camera';
@@ -38,6 +44,24 @@ export function CameraScreen({ navigation }: Props) {
   const [flash, setFlash] = useState<FlashMode>('off');
   const [capturing, setCapturing] = useState(false);
   const [ready, setReady] = useState(false);
+
+  // Rotate the overlay (frame, hint, controls) to match how the phone is held,
+  // so the framing tilts with the device even though the UI is locked portrait.
+  const rot = useSharedValue(0);
+  const rotStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rot.value}deg` }],
+  }));
+  const handleOrientation = ({ orientation }: { orientation: string }) => {
+    const angle =
+      orientation === 'landscapeLeft'
+        ? 90
+        : orientation === 'landscapeRight'
+          ? -90
+          : orientation === 'portraitUpsideDown'
+            ? 180
+            : 0;
+    rot.value = withTiming(angle, { duration: 340, easing: Easing.out(Easing.cubic) });
+  };
 
   // Request permission automatically on first mount.
   useEffect(() => {
@@ -116,6 +140,7 @@ export function CameraScreen({ navigation }: Props) {
         // Capture landscape photos when the phone is turned, even though the
         // UI stays locked to portrait (iOS).
         responsiveOrientationWhenOrientationLocked
+        onResponsiveOrientationChanged={handleOrientation}
         onCameraReady={() => setReady(true)}
       />
 
@@ -134,7 +159,11 @@ export function CameraScreen({ navigation }: Props) {
       <SafeAreaView style={styles.overlay} edges={['top', 'bottom']}>
         {/* Top controls */}
         <View style={styles.topBar}>
-          <CircleButton icon="chevron-back" onPress={() => navigation.goBack()} />
+          <CircleButton
+            icon="chevron-back"
+            onPress={() => navigation.goBack()}
+            rotStyle={rotStyle}
+          />
           <View style={styles.topRight}>
             <CircleButton
               icon={flash === 'off' ? 'flash-off' : 'flash'}
@@ -142,17 +171,21 @@ export function CameraScreen({ navigation }: Props) {
               onPress={() =>
                 setFlash((f) => (f === 'off' ? 'on' : f === 'on' ? 'auto' : 'off'))
               }
+              rotStyle={rotStyle}
             />
           </View>
         </View>
 
-        {/* Center framing brackets + scan line */}
+        {/* Center framing brackets + scan line — tilts with the device */}
         <View style={styles.frameWrap} pointerEvents="none">
-          <View style={styles.frameBox}>
+          <Animated.View style={[styles.frameBox, rotStyle]}>
             <Frame />
             {ready && <ScanLine />}
-          </View>
-          <Animated.Text entering={FadeIn.delay(400)} style={styles.frameHint}>
+          </Animated.View>
+          <Animated.Text
+            entering={FadeIn.delay(400)}
+            style={[styles.frameHint, rotStyle]}
+          >
             Frame your subject
           </Animated.Text>
         </View>
@@ -165,6 +198,7 @@ export function CameraScreen({ navigation }: Props) {
             <CircleButton
               icon="camera-reverse-outline"
               onPress={() => setFacing((f) => (f === 'back' ? 'front' : 'back'))}
+              rotStyle={rotStyle}
             />
           </View>
         </View>
@@ -179,20 +213,25 @@ function CircleButton({
   icon,
   onPress,
   active,
+  rotStyle,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
   onPress: () => void;
   active?: boolean;
+  rotStyle?: StyleProp<ViewStyle>;
 }) {
+  const glyph = (
+    <Animated.View style={rotStyle}>
+      <Ionicons name={icon} size={22} color={active ? colors.black : colors.ink} />
+    </Animated.View>
+  );
   return (
     <PressableScale onPress={onPress} haptic="light">
       {active ? (
-        <View style={[styles.circleBtn, styles.circleBtnActive]}>
-          <Ionicons name={icon} size={22} color={colors.black} />
-        </View>
+        <View style={[styles.circleBtn, styles.circleBtnActive]}>{glyph}</View>
       ) : (
         <GlassCard rounded="pill" padded={false} intensity={36} style={styles.circleBtn}>
-          <Ionicons name={icon} size={22} color={colors.ink} />
+          {glyph}
         </GlassCard>
       )}
     </PressableScale>

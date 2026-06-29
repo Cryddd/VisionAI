@@ -12,7 +12,14 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, { FadeIn, SlideInDown, SlideOutDown } from 'react-native-reanimated';
+import Animated, {
+  Easing,
+  FadeIn,
+  FadeOut,
+  runOnJS,
+  SlideInDown,
+  SlideOutDown,
+} from 'react-native-reanimated';
 import { Button } from './Button';
 import { useSettings } from '../context/SettingsContext';
 import { colors, fill, radius, spacing, type } from '../theme';
@@ -24,9 +31,19 @@ interface Props {
 
 const GEMINI_KEY_URL = 'https://aistudio.google.com/app/apikey';
 
+const EASE_OUT = Easing.bezier(0.16, 1, 0.3, 1); // entrances
+const EASE_IN = Easing.bezier(0.5, 0, 0.75, 0); // exits
+
 export function SettingsSheet({ visible, onClose }: Props) {
   const insets = useSafeAreaInsets();
   const { config, update } = useSettings();
+
+  // Keep the Modal mounted through the exit animation so the close
+  // actually plays instead of snapping shut.
+  const [mounted, setMounted] = useState(visible);
+  useEffect(() => {
+    if (visible) setMounted(true);
+  }, [visible]);
 
   const [geminiKey, setGeminiKey] = useState(config.geminiApiKey);
   const [geminiModel, setGeminiModel] = useState(config.geminiModel);
@@ -54,18 +71,30 @@ export function SettingsSheet({ visible, onClose }: Props) {
   };
 
   return (
-    <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
-      <Animated.View entering={FadeIn.duration(220)} style={styles.backdrop}>
-        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
-      </Animated.View>
+    <Modal visible={mounted} transparent animationType="none" onRequestClose={onClose}>
+      {visible && (
+        <Animated.View
+          entering={FadeIn.duration(220)}
+          exiting={FadeOut.duration(200)}
+          style={styles.backdrop}
+        >
+          <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
+        </Animated.View>
+      )}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.kav}
         pointerEvents="box-none"
       >
+        {visible && (
         <Animated.View
-          entering={SlideInDown.springify().damping(20).stiffness(180)}
-          exiting={SlideOutDown.duration(220)}
+          entering={SlideInDown.duration(340).easing(EASE_OUT)}
+          exiting={SlideOutDown.duration(240)
+            .easing(EASE_IN)
+            .withCallback((finished) => {
+              'worklet';
+              if (finished) runOnJS(setMounted)(false);
+            })}
           style={[styles.sheet, { paddingBottom: insets.bottom + spacing.lg }]}
         >
           <View style={styles.grabber} />
@@ -148,6 +177,7 @@ export function SettingsSheet({ visible, onClose }: Props) {
             <Button label="Save" onPress={save} />
           </ScrollView>
         </Animated.View>
+        )}
       </KeyboardAvoidingView>
     </Modal>
   );

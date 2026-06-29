@@ -4,6 +4,7 @@ import Svg, { Defs, RadialGradient, Stop, Circle } from 'react-native-svg';
 import Animated, {
   Easing,
   useAnimatedStyle,
+  useReducedMotion,
   useSharedValue,
   withDelay,
   withRepeat,
@@ -75,9 +76,11 @@ function Blob({
   screenH: number;
 }) {
   const t = useSharedValue(0);
+  const reduceMotion = useReducedMotion();
   const diameter = screenW * spec.size;
 
   useEffect(() => {
+    if (reduceMotion) return; // keep blobs static when reduce-motion is on
     t.value = withDelay(
       spec.delay,
       withRepeat(
@@ -89,7 +92,7 @@ function Blob({
         true
       )
     );
-  }, [spec.delay, spec.duration, t]);
+  }, [spec.delay, spec.duration, t, reduceMotion]);
 
   const animStyle = useAnimatedStyle(() => {
     const p = t.value; // 0–1, eased
