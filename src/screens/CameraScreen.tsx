@@ -113,6 +113,9 @@ export function CameraScreen({ navigation }: Props) {
         style={StyleSheet.absoluteFill}
         facing={facing}
         flash={flash}
+        // Capture landscape photos when the phone is turned, even though the
+        // UI stays locked to portrait (iOS).
+        responsiveOrientationWhenOrientationLocked
         onCameraReady={() => setReady(true)}
       />
 

@@ -45,9 +45,6 @@
       <line x1="308" y1="68" x2="324" y2="68"/><circle cx="313" cy="68" r="2.5" fill="#0A0A0B"/>
     </g>
 
-    <!-- decorative ring -->
-    <circle cx="345" cy="170" r="90" fill="none" stroke="#F6F4EF" stroke-opacity="0.16"/>
-
     <!-- hero -->
     <text x="28" y="320" fill="#FFB35C" font-size="11" font-weight="700" letter-spacing="3">GEMINI · VISION · INTELLIGENCE</text>
     <text x="26" y="392" fill="#F6F4EF" font-size="52" font-weight="800" font-family="Georgia, 'Times New Roman', serif">Point.</text>

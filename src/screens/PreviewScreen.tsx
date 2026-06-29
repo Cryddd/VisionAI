@@ -37,12 +37,15 @@ const MODE_ICON: Record<AnalysisMode, keyof typeof Ionicons.glyphMap> = {
 export function PreviewScreen({ navigation }: Props) {
   const { photo } = useCapture();
   const { hasGeminiKey } = useSettings();
-  const { height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const [selected, setSelected] = useState<AnalysisMode>('academic');
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  // Responsive image height that always leaves room for the cards below.
-  const imageHeight = Math.max(220, Math.min(height * 0.36, 360));
+  // Size the preview to the photo's real aspect ratio so portrait AND
+  // landscape captures both display fully (landscape stays horizontal).
+  const aspect = photo?.width && photo?.height ? photo.width / photo.height : 3 / 4;
+  const contentWidth = width - spacing.lg * 2;
+  const imageHeight = Math.max(200, Math.min(contentWidth / aspect, height * 0.5));
 
   // Guard: if no photo (e.g. hot reload), return to camera.
   useEffect(() => {

@@ -9,7 +9,6 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AnimatedGradient } from '../components/AnimatedGradient';
 import { GrainOverlay } from '../components/GrainOverlay';
 import { Button } from '../components/Button';
-import { Floating } from '../components/Floating';
 import { PressableScale } from '../components/PressableScale';
 import { SettingsSheet } from '../components/SettingsSheet';
 import { useSettings } from '../context/SettingsContext';
@@ -43,11 +42,6 @@ export function LandingScreen({ navigation }: Props) {
             <Ionicons name="options-outline" size={20} color={colors.ink} />
           </PressableScale>
         </Animated.View>
-
-        {/* Floating decorative orb */}
-        <Floating amplitude={16} rotate={6} style={styles.decor}>
-          <View style={styles.decorRing} />
-        </Floating>
 
         {/* Hero */}
         <View style={styles.hero}>
@@ -143,18 +137,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(246,244,239,0.08)',
     borderWidth: 1,
     borderColor: colors.hairline,
-  },
-  decor: {
-    position: 'absolute',
-    right: -40,
-    top: 90,
-  },
-  decorRing: {
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    borderWidth: 1,
-    borderColor: 'rgba(246,244,239,0.18)',
   },
   hero: { flex: 1, justifyContent: 'center' },
   eyebrow: { ...type.eyebrow, color: colors.amber, marginBottom: spacing.lg },
