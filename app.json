@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "VisionAI",
+    "slug": "visionai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "visionai",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "VisionAI uses your camera to capture photos and analyze what's in the frame with AI."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0A0A0B",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "predictiveBackGestureEnabled": false,
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "VisionAI uses your camera to capture photos and analyze what's in the frame with AI."
+        }
+      ],
+      "expo-image",
+      "expo-font"
+    ],
+    "extra": {
+      "geminiApiKey": "",
+      "geminiModel": "gemini-2.5-flash",
+      "roboflowApiKey": "",
+      "roboflowModel": ""
+    }
+  }
+}
