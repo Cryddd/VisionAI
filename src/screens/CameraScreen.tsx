@@ -19,11 +19,12 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AnimatedGradient } from '../components/AnimatedGradient';
 import { GrainOverlay } from '../components/GrainOverlay';
 import { Button } from '../components/Button';
+import { GlassCard } from '../components/GlassCard';
 import { PressableScale } from '../components/PressableScale';
 import { useCapture } from '../context/CaptureContext';
 import { prepareForAnalysis } from '../utils/image';
 import { RootStackParamList } from '../navigation/types';
-import { colors, fill, neoGradient, radius, spacing, springs, type } from '../theme';
+import { colors, fill, neoGradient, radius, spacing, type } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Camera'>;
 
@@ -297,11 +298,12 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(20,20,23,0.55)',
-    borderWidth: 1,
-    borderColor: colors.hairline,
   },
-  circleBtnActive: { backgroundColor: colors.amber, borderColor: colors.amber },
+  circleBtnActive: {
+    backgroundColor: colors.amber,
+    borderWidth: 1,
+    borderColor: colors.amber,
+  },
 
   // frame
   frameWrap: { alignItems: 'center', justifyContent: 'center', flex: 1 },

@@ -7,7 +7,6 @@
     "icon": "./assets/icon.png",
     "scheme": "visionai",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -24,8 +23,7 @@
       "permissions": [
         "android.permission.CAMERA"
       ],
-      "predictiveBackGestureEnabled": false,
-      "edgeToEdgeEnabled": true
+      "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
