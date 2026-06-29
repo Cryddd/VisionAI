@@ -1,0 +1,75 @@
+<svg width="360" height="740" viewBox="0 0 360 740" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <clipPath id="screen"><rect x="0" y="0" width="360" height="740" rx="44"/></clipPath>
+    <clipPath id="photo"><rect x="24" y="56" width="312" height="280" rx="28"/></clipPath>
+    <linearGradient id="shot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6E5A8C"/>
+      <stop offset="50%" stop-color="#9A6F7A"/>
+      <stop offset="100%" stop-color="#C68A5A"/>
+    </linearGradient>
+    <linearGradient id="scrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#08080A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#08080A" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="aca" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5B57FF"/><stop offset="50%" stop-color="#7C5CFF"/><stop offset="100%" stop-color="#FF5DA2"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#screen)">
+    <rect width="360" height="740" fill="#0A0A0B"/>
+
+    <!-- captured image -->
+    <g clip-path="url(#photo)">
+      <rect x="24" y="56" width="312" height="280" fill="url(#shot)"/>
+      <circle cx="140" cy="150" r="60" fill="#FFFFFF" opacity="0.12"/>
+      <rect x="200" y="210" width="110" height="90" rx="10" fill="#FFFFFF" opacity="0.10"/>
+      <rect x="24" y="216" width="312" height="120" fill="url(#scrim)"/>
+    </g>
+    <rect x="24" y="56" width="312" height="280" rx="28" fill="none" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <!-- retake chip -->
+    <rect x="244" y="72" width="80" height="32" rx="16" fill="#08080A" fill-opacity="0.6" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <g stroke="#F6F4EF" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M258 84 a7 7 0 1 0 2 -5"/><path d="M258 80 v5 h5"/>
+    </g>
+    <text x="272" y="92" fill="#F6F4EF" font-size="11" font-weight="600">Retake</text>
+
+    <!-- heading -->
+    <text x="24" y="376" fill="#A6A29A" font-size="11" font-weight="700" letter-spacing="3">CHOOSE YOUR LENS</text>
+    <text x="22" y="408" fill="#F6F4EF" font-size="24" font-weight="700" font-family="Georgia, serif">How should AI read this?</text>
+
+    <!-- mode card: Academic (selected) -->
+    <rect x="24" y="430" width="312" height="72" rx="22" fill="#141417" stroke="#7C5CFF" stroke-width="1.5"/>
+    <rect x="40" y="446" width="42" height="42" rx="12" fill="#7C5CFF" fill-opacity="0.16"/>
+    <path d="M61 456 l14 6 l-14 6 l-14 -6 z M53 466 v7 a8 4 0 0 0 16 0 v-7" fill="none" stroke="#7C5CFF" stroke-width="2" stroke-linejoin="round"/>
+    <text x="96" y="462" fill="#F6F4EF" font-size="16" font-weight="700">Academic</text>
+    <text x="96" y="481" fill="#A6A29A" font-size="11">A scholarly read — concepts, materials,</text>
+    <text x="96" y="494" fill="#A6A29A" font-size="11">and what it could teach.</text>
+    <circle cx="312" cy="466" r="12" fill="#7C5CFF"/>
+    <path d="M306 466 l4 4 l8 -8" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- mode card: Safety -->
+    <rect x="24" y="512" width="312" height="72" rx="22" fill="#141417" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <rect x="40" y="528" width="42" height="42" rx="12" fill="#FF7A45" fill-opacity="0.16"/>
+    <path d="M61 537 l11 4 v6 c0 7 -5 11 -11 13 c-6 -2 -11 -6 -11 -13 v-6 z" fill="none" stroke="#FF7A45" stroke-width="2" stroke-linejoin="round"/>
+    <text x="96" y="544" fill="#F6F4EF" font-size="16" font-weight="700">Safety</text>
+    <text x="96" y="563" fill="#A6A29A" font-size="11">Hazards, compliance, and protective</text>
+    <text x="96" y="576" fill="#A6A29A" font-size="11">actions for the environment.</text>
+    <circle cx="312" cy="548" r="12" fill="none" stroke="#6E6B64" stroke-width="2"/>
+
+    <!-- mode card: Inventory -->
+    <rect x="24" y="594" width="312" height="72" rx="22" fill="#141417" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <rect x="40" y="610" width="42" height="42" rx="12" fill="#3DDC97" fill-opacity="0.16"/>
+    <path d="M61 618 l11 6 v12 l-11 6 l-11 -6 v-12 z" fill="none" stroke="#3DDC97" stroke-width="2" stroke-linejoin="round"/>
+    <text x="96" y="626" fill="#F6F4EF" font-size="16" font-weight="700">Inventory</text>
+    <text x="96" y="645" fill="#A6A29A" font-size="11">Itemize objects, quantities, and</text>
+    <text x="96" y="658" fill="#A6A29A" font-size="11">condition like a stock take.</text>
+    <circle cx="312" cy="630" r="12" fill="none" stroke="#6E6B64" stroke-width="2"/>
+
+    <!-- CTA -->
+    <rect x="24" y="680" width="312" height="44" rx="22" fill="url(#aca)"/>
+    <text x="180" y="708" fill="#000000" font-size="15" font-weight="700" text-anchor="middle">✦  Run Academic Analysis</text>
+
+    <rect x="0.5" y="0.5" width="359" height="739" rx="44" fill="none" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  </g>
+</svg>

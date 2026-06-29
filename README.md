@@ -1,164 +1,141 @@
-# VisionAI Design Vision
+<div align="center">
 
-## Product Philosophy
+<img src="./assets/preview/hero-banner.svg" alt="VisionAI — point your camera, capture the moment, let AI tell you what's in the frame" width="100%" />
 
-VisionAI should not feel like a classroom project. It should feel like a premium AI mobile application that could realistically compete with today's best AI-powered products. While strictly following every requirement and objective from the official project guide, the application should significantly elevate the user experience through exceptional interface design, thoughtful motion, and polished interactions.
+<br/>
 
-The objective is to build an application that immediately captures attention through craftsmanship, modern aesthetics, and intuitive usability without sacrificing functionality or deviating from the project's academic goals.
+# VisionAI
 
----
+**A premium mobile app that opens your camera, captures a real photo, and uses Google's Gemini Vision to tell you what's actually in the frame** — objects, scene context, activity, and recommendations.
 
-# Core Design Goals
+<br/>
 
-The application should be:
+![Expo SDK](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo&logoColor=white)
+![React Native](https://img.shields.io/badge/React%20Native-0.81-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google-Gemini%20Vision-8E75FF?logo=googlegemini&logoColor=white)
+![Platforms](https://img.shields.io/badge/iOS%20%7C%20Android-supported-3DDC97)
 
-- Modern
-- Premium
-- Experimental
-- Minimal
-- Editorial
-- Motion-first
-- Highly interactive
-- Smooth
-- Fast
-- Visually memorable
-
-Every interface should feel carefully designed rather than automatically generated.
+</div>
 
 ---
 
-# Visual Identity
+## ✦ The experience
 
-The design language should combine several modern design philosophies:
+VisionAI isn't a classroom demo — it's built to feel like a shipping AI product:
+a living neo-gradient landing, a Gen-Z camera, choreographed AI loading, and
+editorial result cards. Point, capture, choose a lens, and read the scene back
+in seconds.
 
-- Editorial layouts
-- Modern brutalism
-- Apple-inspired minimalism
-- Luxury UI
-- Gen Z aesthetics
-- Experimental interfaces
-- Organic motion
-- Glassmorphism where appropriate
+<div align="center">
 
-The interface should feel alive while maintaining simplicity and clarity.
+| Landing | Camera | Preview · Pick a lens | Results |
+|:---:|:---:|:---:|:---:|
+| <img src="./assets/preview/01-landing.svg" alt="Landing screen" width="210"/> | <img src="./assets/preview/02-camera.svg" alt="Camera screen" width="210"/> | <img src="./assets/preview/03-preview.svg" alt="Preview and lens selection" width="210"/> | <img src="./assets/preview/04-results.svg" alt="AI results" width="210"/> |
+| Living animated gradient, editorial type, **Get Started** | Permission-aware, framing brackets, scan line, elastic shutter | Academic · Safety · Inventory lenses | Objects, Context, Activities, Recommendations |
 
----
+</div>
 
-# Motion Design
-
-Motion should become one of the application's strongest visual identities.
-
-Every interaction should feel fluid and natural through carefully choreographed animations.
-
-Examples include:
-
-- Living animated gradients
-- Smooth page transitions
-- Floating interface elements
-- Elastic micro-interactions
-- Card reveal animations
-- AI loading choreography
-- Fade-through transitions
-- Soft parallax movement
-- Organic floating objects
-
-Animations should improve the experience instead of distracting from it.
+> 🎨 The screens above are **design mockups** rendered straight from the app's
+> real color system, typography hierarchy, and layout. Live device screenshots
+> drop in here once you run it on a phone — see [Getting started](#-getting-started).
 
 ---
 
-# Landing Experience
+## ✦ What it does
 
-Before accessing the camera interface, users should first encounter a premium landing page.
+```
+Landing  →  Camera  →  Preview (choose a lens)  →  Results
+```
 
-The landing page should include:
+1. **Landing** — a premium intro with a living neo-gradient, halftone grain, and brutalist editorial type.
+2. **Camera** — requests permission on first launch, captures a real photo at `quality: 0.7`, then compresses it for a fast request.
+3. **Preview** — pick how AI should read the shot through one of three lenses:
 
-- Animated Neo-gradient background
-- Living gradient movement
-- Organic flowing motion
-- Analog print textures
-- Halftone grain effects
-- Editorial-inspired layouts
-- Brutalist typography
-- Elegant spacing
-- Smooth page transitions
+   | Lens | Reads the scene as… |
+   |---|---|
+   | 🎓 **Academic** | Concepts, materials, and what it could teach |
+   | 🛡️ **Safety** | Hazards, compliance, and protective actions |
+   | 📦 **Inventory** | Items, quantities, and condition — a stock take |
 
-After the Hero section and overview, include a large, modern **Get Started** button that transitions naturally into the camera experience.
-
----
-
-# Typography
-
-Use a handcrafted display font for headlines with rounded forms, organic curves, slight irregularities, and a warm artistic personality. Pair it with a clean modern sans-serif font for UI components and body text.
+4. **Results** — structured, reveal-animated cards: **Objects · Scene Context · Activities · Recommendations**, plus an optional **Roboflow** object-detection card with bounding boxes and confidence scores.
 
 ---
 
-# Camera Experience
+## ✦ Highlights
 
-The camera is the application's default screen after onboarding.
+- **Real AI vision** — Google **Gemini Vision** via REST with a strict
+  `responseSchema`, so every result comes back as reliable structured JSON.
+- **Modular model layer** — `analyzeImage()` accepts any `VisionProvider`;
+  swapping in a future Gemini model (or another backend) is a one-line change.
+- **Motion-first** — Reanimated 4 powers living gradients, floating elements,
+  elastic presses, card reveals, and an AI loading orb.
+- **Premium design system** — dark editorial palette, **Fraunces** (display)
+  + **Space Grotesk** (UI), glassmorphism, halftone grain.
+- **Production-grade TypeScript** — strict mode plus `noUnusedLocals`,
+  `noUnusedParameters`, `noImplicitReturns`, and more. `tsc` is clean.
+- **Cross-platform** — one codebase for iOS and Android.
 
-Requirements:
+---
 
-- Request camera permission on first launch.
-- Premium Gen Z-inspired camera interface.
-- Unique UI that is not a clone of existing AI camera apps.
-- Prioritize clarity, elegance, and usability.
+## ✦ Tech stack
 
-Camera quality:
+| Layer | Tooling |
+|---|---|
+| Framework | Expo SDK 54 · React Native 0.81 · React 19 |
+| Language | TypeScript (strict) |
+| AI | Google Gemini Vision (REST) · optional Roboflow |
+| Navigation | React Navigation (native-stack) |
+| Motion | react-native-reanimated 4 + worklets |
+| Camera / media | expo-camera · expo-image · expo-image-manipulator |
+| UI | expo-linear-gradient · expo-blur · react-native-svg · expo-haptics |
+| Type | Fraunces + Space Grotesk (`@expo-google-fonts`) |
 
-```javascript
-quality: 0.7
+---
+
+## ✦ Getting started
+
+```bash
+# 1. Install
+npm install
+
+# 2. Run — scan the QR with Expo Go (SDK 54), or use a simulator/emulator
+npm start
+npm run ios       # iOS simulator
+npm run android   # Android emulator
+```
+
+**Add your free Gemini API key** (required to run an analysis) right inside the
+app: tap the **options icon** on the landing screen → paste your key → Save.
+Grab one at <https://aistudio.google.com/app/apikey>.
+
+> 📷 The camera needs a real device or a simulator/emulator with a camera.
+> Full setup, optional Roboflow, and troubleshooting live in [`SETUP.md`](./SETUP.md).
+
+---
+
+## ✦ Project structure
+
+```
+src/
+├─ screens/      Landing · Camera · Preview · Results
+├─ components/   AnimatedGradient, GlassCard, AnalysisLoader, SectionCard, …
+├─ services/ai/  geminiProvider · roboflowProvider · visionService (modular)
+├─ context/      SettingsContext (API keys) · CaptureContext (photo + result)
+├─ hooks/        useAnalysis · useAppFonts
+├─ theme/        colors · typography · spacing
+└─ utils/        image preparation pipeline
 ```
 
 ---
 
-# AI Model
+## ✦ Documentation
 
-Use **Gemini 2.5+ Vision** with a modular implementation for future upgrades.
-
----
-
-# Image Preview
-
-After capturing an image, present three analysis options:
-
-- Academic Analysis
-- Safety Analysis
-- Inventory Analysis
+- 📐 [`DESIGN.md`](./DESIGN.md) — the full design vision and philosophy
+- 🛠️ [`SETUP.md`](./SETUP.md) — detailed setup, Roboflow, and how it works
 
 ---
 
-# AI Results
-
-Display structured cards for:
-
-- Objects
-- Scene Context
-- Activities
-- Recommendations
-
-If Roboflow is enabled, include object detection as an additional section.
-
----
-
-# Optional Roboflow
-
-Use Roboflow as an optional enhancement for object detection, confidence scores, and bounding-box predictions alongside Gemini Vision.
-
----
-
-# Technical Expectations
-
-- React Native
-- Expo
-- Modern architecture
-- Reusable components
-- Responsive layouts
-- High performance
-- Cross-platform support
-- Production-quality UX
-
----
-
-# Final Vision
-
-VisionAI should feel like a premium AI-powered mobile experience with exceptional typography, cinematic motion, elegant UI, and modern interaction design. The application should remain faithful to the project's objectives while delivering a polished, production-quality experience suitable for Claude Code development.
+<div align="center">
+<sub>Built with Expo + React Native · Powered by Google Gemini Vision</sub>
+</div>

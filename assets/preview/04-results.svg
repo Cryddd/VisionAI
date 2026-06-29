@@ -1,0 +1,78 @@
+<svg width="360" height="740" viewBox="0 0 360 740" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <clipPath id="screen"><rect x="0" y="0" width="360" height="740" rx="44"/></clipPath>
+    <clipPath id="thumb"><rect x="40" y="150" width="60" height="60" rx="14"/></clipPath>
+    <radialGradient id="rb" cx="30%" cy="20%" r="80%">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.30"/>
+      <stop offset="60%" stop-color="#7C5CFF" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#7C5CFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tshot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6E5A8C"/><stop offset="100%" stop-color="#C68A5A"/>
+    </linearGradient>
+    <linearGradient id="herocard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="#7C5CFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#screen)">
+    <rect width="360" height="740" fill="#0A0A0B"/>
+    <rect width="360" height="740" fill="url(#rb)"/>
+
+    <!-- header -->
+    <rect x="24" y="48" width="44" height="44" rx="22" fill="#F6F4EF" fill-opacity="0.06"/>
+    <path d="M40 64 l12 12 M52 64 l-12 12" stroke="#F6F4EF" stroke-width="2.2" stroke-linecap="round"/>
+    <rect x="108" y="56" width="144" height="30" rx="15" fill="none" stroke="#7C5CFF" stroke-width="1.5"/>
+    <circle cx="128" cy="71" r="4" fill="#7C5CFF"/>
+    <text x="140" y="75" fill="#F6F4EF" font-size="12" font-weight="600">Academic Analysis</text>
+
+    <!-- hero result card -->
+    <rect x="24" y="104" width="312" height="118" rx="26" fill="#141417" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <rect x="24" y="104" width="312" height="118" rx="26" fill="url(#herocard)"/>
+    <g clip-path="url(#thumb)"><rect x="40" y="150" width="60" height="60" fill="url(#tshot)"/></g>
+    <text x="116" y="146" fill="#A6A29A" font-size="10" font-weight="700" letter-spacing="2">RESULT</text>
+    <text x="116" y="172" fill="#F6F4EF" font-size="19" font-weight="700" font-family="Georgia, serif">A focused home</text>
+    <text x="116" y="194" fill="#F6F4EF" font-size="19" font-weight="700" font-family="Georgia, serif">workspace</text>
+    <text x="40" y="246" fill="#A6A29A" font-size="11">A tidy desk set up for deep, screen-based</text>
+    <text x="40" y="262" fill="#A6A29A" font-size="11">work with natural light from the left.</text>
+
+    <!-- Objects card -->
+    <rect x="24" y="236" width="312" height="0" /> <!-- spacer ref -->
+    <rect x="24" y="284" width="312" height="120" rx="22" fill="#141417" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <rect x="40" y="300" width="34" height="34" rx="9" fill="#7C5CFF" fill-opacity="0.16"/>
+    <path d="M57 307 l9 5 v10 l-9 5 l-9 -5 v-10 z" fill="none" stroke="#7C5CFF" stroke-width="1.8" stroke-linejoin="round"/>
+    <text x="86" y="322" fill="#A6A29A" font-size="11" font-weight="700" letter-spacing="2">OBJECTS</text>
+    <g font-size="13" fill="#F6F4EF">
+      <circle cx="44" cy="352" r="3" fill="#7C5CFF"/><text x="56" y="356">Laptop <tspan fill="#A6A29A" font-size="11">· open, mid-task</tspan></text>
+      <circle cx="44" cy="374" r="3" fill="#7C5CFF"/><text x="56" y="378">Ceramic mug <tspan fill="#A6A29A" font-size="11">· on the desk</tspan></text>
+      <circle cx="44" cy="396" r="3" fill="#7C5CFF"/><text x="56" y="400">Notebook <tspan fill="#A6A29A" font-size="11">· spiral-bound</tspan></text>
+    </g>
+
+    <!-- Activities (tags) -->
+    <rect x="24" y="416" width="312" height="86" rx="22" fill="#141417" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <rect x="40" y="432" width="34" height="34" rx="9" fill="#7C5CFF" fill-opacity="0.16"/>
+    <path d="M48 449 h6 l3 -7 l5 14 l3 -7 h6" fill="none" stroke="#7C5CFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="86" y="454" fill="#A6A29A" font-size="11" font-weight="700" letter-spacing="2">ACTIVITIES</text>
+    <g font-size="12" fill="#F6F4EF">
+      <rect x="40" y="470" width="86" height="24" rx="12" fill="none" stroke="#FFFFFF" stroke-opacity="0.16"/><text x="52" y="486">Focused work</text>
+      <rect x="134" y="470" width="74" height="24" rx="12" fill="none" stroke="#FFFFFF" stroke-opacity="0.16"/><text x="146" y="486">Note-taking</text>
+      <rect x="216" y="470" width="64" height="24" rx="12" fill="none" stroke="#FFFFFF" stroke-opacity="0.16"/><text x="228" y="486">Reading</text>
+    </g>
+
+    <!-- Recommendations -->
+    <rect x="24" y="514" width="312" height="146" rx="22" fill="#141417" stroke="#FFFFFF" stroke-opacity="0.10"/>
+    <rect x="40" y="530" width="34" height="34" rx="9" fill="#7C5CFF" fill-opacity="0.16"/>
+    <path d="M57 538 a8 8 0 0 1 5 14 v3 h-10 v-3 a8 8 0 0 1 5 -14 z M53 561 h8" fill="none" stroke="#7C5CFF" stroke-width="1.8" stroke-linejoin="round"/>
+    <text x="86" y="552" fill="#A6A29A" font-size="11" font-weight="700" letter-spacing="2">RECOMMENDATIONS</text>
+    <g fill="#F6F4EF" font-size="12.5">
+      <text x="40" y="586" fill="#7C5CFF" font-size="13" font-weight="700">01</text><text x="64" y="586">Raise the screen to eye level.</text>
+      <text x="40" y="614" fill="#7C5CFF" font-size="13" font-weight="700">02</text><text x="64" y="614">Add a warmer secondary light.</text>
+      <text x="40" y="642" fill="#7C5CFF" font-size="13" font-weight="700">03</text><text x="64" y="642">Keep water within reach.</text>
+    </g>
+
+    <text x="180" y="690" fill="#6E6B64" font-size="10" text-anchor="middle">Analyzed with gemini-2.5-flash</text>
+
+    <rect x="0.5" y="0.5" width="359" height="739" rx="44" fill="none" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  </g>
+</svg>
