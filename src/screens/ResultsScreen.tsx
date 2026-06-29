@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -83,7 +83,6 @@ export function ResultsScreen({ route, navigation }: Props) {
         {status === 'success' && result && (
           <ResultsBody
             result={result}
-            mode={mode}
             photoUri={photo?.uri}
             photoAspect={
               photo?.width && photo?.height ? photo.width / photo.height : 0.75
@@ -100,7 +99,6 @@ export function ResultsScreen({ route, navigation }: Props) {
 
 function ResultsBody({
   result,
-  mode,
   photoUri,
   photoAspect,
   accentKey,
@@ -108,7 +106,6 @@ function ResultsBody({
   onNewScan,
 }: {
   result: import('../services/ai/types').AnalysisResult;
-  mode: import('../services/ai/types').AnalysisMode;
   photoUri?: string;
   photoAspect: number;
   accentKey: string;

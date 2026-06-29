@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, useWindowDimensions, ViewStyle } from 'react-native';
 import Svg, { Defs, Pattern, Circle, Rect } from 'react-native-svg';
 

@@ -35,7 +35,6 @@
           "cameraPermission": "VisionAI uses your camera to capture photos and analyze what's in the frame with AI."
         }
       ],
-      "expo-image",
       "expo-font"
     ],
     "extra": {
